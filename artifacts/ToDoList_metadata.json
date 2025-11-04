@@ -1,0 +1,165 @@
+{
+	"compiler": {
+		"version": "0.8.30+commit.73712a01"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "_description",
+						"type": "string"
+					}
+				],
+				"name": "addTask",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_index",
+						"type": "uint256"
+					}
+				],
+				"name": "deleteTask",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getTaskCount",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getTasks",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "string",
+								"name": "description",
+								"type": "string"
+							},
+							{
+								"internalType": "bool",
+								"name": "completed",
+								"type": "bool"
+							}
+						],
+						"internalType": "struct ToDoList.Task[]",
+						"name": "",
+						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_index",
+						"type": "uint256"
+					}
+				],
+				"name": "toggleTask",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {
+				"addTask(string)": {
+					"params": {
+						"_description": "The text description of the task."
+					}
+				},
+				"deleteTask(uint256)": {
+					"params": {
+						"_index": "Index of the task to delete."
+					}
+				},
+				"getTaskCount()": {
+					"returns": {
+						"_0": "The count of tasks currently stored."
+					}
+				},
+				"getTasks()": {
+					"returns": {
+						"_0": "Array of all tasks with their descriptions and status."
+					}
+				},
+				"toggleTask(uint256)": {
+					"params": {
+						"_index": "Index of the task to toggle."
+					}
+				}
+			},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {
+				"addTask(string)": {
+					"notice": "Add a new task to the list."
+				},
+				"deleteTask(uint256)": {
+					"notice": "Delete a task by its index."
+				},
+				"getTaskCount()": {
+					"notice": "Get the total number of tasks."
+				},
+				"getTasks()": {
+					"notice": "Get the full list of tasks."
+				},
+				"toggleTask(uint256)": {
+					"notice": "Toggle completion status of a task."
+				}
+			},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/Todolist.sol": "ToDoList"
+		},
+		"evmVersion": "prague",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/Todolist.sol": {
+			"keccak256": "0xd5eafaa62e9b6f9afcace1638fb6570c27272ede7a52e81109c117023510fb07",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://4b3cd672da1895dec89cd9cdb0fdccc1c1d8d70527437d9a0f0113a67949546f",
+				"dweb:/ipfs/QmdgL3iUrTct38vFctA2DvRz4dhnt4mHeeJrxLEEfXtGYh"
+			]
+		}
+	},
+	"version": 1
+}

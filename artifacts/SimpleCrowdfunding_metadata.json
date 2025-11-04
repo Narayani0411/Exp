@@ -1,0 +1,230 @@
+{
+	"compiler": {
+		"version": "0.8.30+commit.73712a01"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_target",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_durationMinutes",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					}
+				],
+				"name": "contribute",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "contributions",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "deadline",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getDetails",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "_target",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_deadline",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_totalRaised",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bool",
+						"name": "_goalReached",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "goalReached",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "manager",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "markGoalReached",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "refund",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "target",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "testRun",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "pure",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "totalRaised",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {
+				"contribute(uint256)": {
+					"notice": "Allows users to contribute a fake amount (no real Ether used)"
+				},
+				"getDetails()": {
+					"notice": "Returns basic campaign details"
+				},
+				"markGoalReached()": {
+					"notice": "Manager marks the goal as reached manually"
+				},
+				"refund()": {
+					"notice": "Contributors can refund if goal not met and deadline passed"
+				},
+				"testRun()": {
+					"notice": "Test helper"
+				}
+			},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/Crowdfund.sol": "SimpleCrowdfunding"
+		},
+		"evmVersion": "prague",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/Crowdfund.sol": {
+			"keccak256": "0x4148f9a2970f3bb9038199d921536fca518de275dc0bbb738b0cf9eb8b004c19",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://49676a80f658692d5f7f97b10d45d033b46bb51c25fc51ed2aad49f1effb2cf2",
+				"dweb:/ipfs/QmYzy7TmV5LmT3N1WCQNrNXr7XK9tbmXEB3HNX5m8XNKMj"
+			]
+		}
+	},
+	"version": 1
+}

@@ -1,0 +1,149 @@
+{
+	"compiler": {
+		"version": "0.8.30+commit.73712a01"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "_name",
+						"type": "string"
+					}
+				],
+				"name": "enterLottery",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getPlayers",
+				"outputs": [
+					{
+						"internalType": "string[]",
+						"name": "",
+						"type": "string[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "lotteryEnded",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "manager",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "pickWinner",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "resetLottery",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "winner",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {
+				"enterLottery(string)": {
+					"params": {
+						"_name": "The name of the participant."
+					}
+				}
+			},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {
+				"enterLottery(string)": {
+					"notice": "Enter the lottery by providing your name."
+				},
+				"getPlayers()": {
+					"notice": "Returns the list of all participants."
+				},
+				"pickWinner()": {
+					"notice": "Manager picks a random winner from participants."
+				},
+				"resetLottery()": {
+					"notice": "Resets the lottery for a new round."
+				}
+			},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/Lottary.sol": "LotterySystem"
+		},
+		"evmVersion": "prague",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/Lottary.sol": {
+			"keccak256": "0xcf8d3ae31f79c7d75acd0ce48c41cd691d813925e34d5bf66fd219f593bdca99",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://b241e3c62c33c0aecfb5c68d32e08ff109144909fa84b4f290cf259cce2fb0a2",
+				"dweb:/ipfs/QmXUhMLCVz2pFiDF7tifLjfiuUxrTXr8UWBqAF1KBnAskb"
+			]
+		}
+	},
+	"version": 1
+}

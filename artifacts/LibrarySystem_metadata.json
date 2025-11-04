@@ -1,0 +1,160 @@
+{
+	"compiler": {
+		"version": "0.8.30+commit.73712a01"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "_title",
+						"type": "string"
+					}
+				],
+				"name": "addBook",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_index",
+						"type": "uint256"
+					}
+				],
+				"name": "borrowBook",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getBookCount",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getBooks",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "string",
+								"name": "title",
+								"type": "string"
+							},
+							{
+								"internalType": "bool",
+								"name": "isAvailable",
+								"type": "bool"
+							}
+						],
+						"internalType": "struct LibrarySystem.Book[]",
+						"name": "",
+						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_index",
+						"type": "uint256"
+					}
+				],
+				"name": "returnBook",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {
+				"addBook(string)": {
+					"params": {
+						"_title": "The title of the book."
+					}
+				},
+				"borrowBook(uint256)": {
+					"params": {
+						"_index": "Index of the book to borrow."
+					}
+				},
+				"getBooks()": {
+					"returns": {
+						"_0": "Array of all books with title and availability."
+					}
+				},
+				"returnBook(uint256)": {
+					"params": {
+						"_index": "Index of the book to return."
+					}
+				}
+			},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {
+				"addBook(string)": {
+					"notice": "Add a new book to the library."
+				},
+				"borrowBook(uint256)": {
+					"notice": "Borrow a book by its index."
+				},
+				"getBookCount()": {
+					"notice": "Get total number of books in the library."
+				},
+				"getBooks()": {
+					"notice": "Get all books in the library."
+				},
+				"returnBook(uint256)": {
+					"notice": "Return a borrowed book."
+				}
+			},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/Library.sol": "LibrarySystem"
+		},
+		"evmVersion": "prague",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/Library.sol": {
+			"keccak256": "0xf4e355a80a16c8f853a6b098e3f47aef61b41fb2313248d37a807937fc525e31",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://33816ce63843ecb136bf16cee863117325054f6be9209cc518ec86d45a0304b4",
+				"dweb:/ipfs/QmNYGToZaKrWeEYwPsDjPNMP3aSjmrCmcwWCNV3k6RU2dn"
+			]
+		}
+	},
+	"version": 1
+}

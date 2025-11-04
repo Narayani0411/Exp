@@ -1,0 +1,588 @@
+{
+	"compiler": {
+		"version": "0.8.30+commit.73712a01"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_target",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_durationSeconds",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "contributor",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					}
+				],
+				"name": "ContributionReceived",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "timestamp",
+						"type": "uint256"
+					}
+				],
+				"name": "DeadlinePassed",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "totalAmount",
+						"type": "uint256"
+					}
+				],
+				"name": "GoalReached",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "contributor",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					}
+				],
+				"name": "RefundIssued",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "requestId",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "description",
+						"type": "string"
+					},
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "recipient",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "value",
+						"type": "uint256"
+					}
+				],
+				"name": "RequestCreated",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "requestId",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "recipient",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "value",
+						"type": "uint256"
+					}
+				],
+				"name": "RequestFinalized",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "voter",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "requestId",
+						"type": "uint256"
+					}
+				],
+				"name": "Voted",
+				"type": "event"
+			},
+			{
+				"stateMutability": "payable",
+				"type": "fallback"
+			},
+			{
+				"inputs": [],
+				"name": "contribute",
+				"outputs": [],
+				"stateMutability": "payable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "contributions",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "contributorsCount",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "_description",
+						"type": "string"
+					},
+					{
+						"internalType": "address payable",
+						"name": "_recipient",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_value",
+						"type": "uint256"
+					}
+				],
+				"name": "createRequest",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "deadline",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "requestId",
+						"type": "uint256"
+					}
+				],
+				"name": "finalizeRequest",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "contributor",
+						"type": "address"
+					}
+				],
+				"name": "getContributionOf",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "requestId",
+						"type": "uint256"
+					}
+				],
+				"name": "getRequest",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "description",
+						"type": "string"
+					},
+					{
+						"internalType": "address",
+						"name": "recipient",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "value",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bool",
+						"name": "completed",
+						"type": "bool"
+					},
+					{
+						"internalType": "uint256",
+						"name": "voteCount",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getRequestsCount",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getSummary",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "_manager",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_target",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_deadline",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_raisedAmount",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_contributorsCount",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bool",
+						"name": "_goalReached",
+						"type": "bool"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_requestsCount",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_contractBalance",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "goalReached",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "requestId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "voter",
+						"type": "address"
+					}
+				],
+				"name": "hasVoted",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "isContributor",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "manager",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "raisedAmount",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "refund",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "target",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "requestId",
+						"type": "uint256"
+					}
+				],
+				"name": "voteRequest",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"stateMutability": "payable",
+				"type": "receive"
+			}
+		],
+		"devdoc": {
+			"author": "@notice Contributors fund a campaign. Manager creates spending requests that contributors vote on. Refunds allowed if target not met by deadline.",
+			"kind": "dev",
+			"methods": {
+				"constructor": {
+					"params": {
+						"_durationSeconds": "duration (seconds) from now until deadline",
+						"_target": "funding goal in wei"
+					}
+				},
+				"createRequest(string,address,uint256)": {
+					"params": {
+						"_description": "description of why funds are needed",
+						"_recipient": "address to receive funds if request finalized",
+						"_value": "amount in wei requested"
+					}
+				},
+				"finalizeRequest(uint256)": {
+					"params": {
+						"requestId": "index of the request"
+					}
+				},
+				"voteRequest(uint256)": {
+					"params": {
+						"requestId": "index of the request"
+					}
+				}
+			},
+			"title": "Decentralized Crowdfunding with Contributor Voting on Disbursements",
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {
+				"contribute()": {
+					"notice": "Contribute ETH to the crowdfunding campaign"
+				},
+				"createRequest(string,address,uint256)": {
+					"notice": "Manager creates a spending request. Recipient will receive funds if contributors approve."
+				},
+				"finalizeRequest(uint256)": {
+					"notice": "Finalize a request and send funds to recipient if majority voters approve and sufficient balance exists."
+				},
+				"getContributionOf(address)": {
+					"notice": "Get contribution amount for an address"
+				},
+				"getRequest(uint256)": {
+					"notice": "Utility to view certain fields of a request (mappings are not directly returnable)"
+				},
+				"getRequestsCount()": {
+					"notice": "Returns number of requests"
+				},
+				"getSummary()": {
+					"notice": "Get summary info about the campaign"
+				},
+				"hasVoted(uint256,address)": {
+					"notice": "Check whether an address voted on a given request"
+				},
+				"refund()": {
+					"notice": "Refund contributed ETH if deadline passed and target not reached. Contributor withdraws their own contribution."
+				},
+				"voteRequest(uint256)": {
+					"notice": "Contributors vote for a request. Each contributor may vote once per request."
+				}
+			},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/crowdfund.sol": "DecentralizedCrowdfund"
+		},
+		"evmVersion": "prague",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/crowdfund.sol": {
+			"keccak256": "0xd3fee004d91bbca3bd98ef63cde0c90e67cc89b6a238704903d9314cbd6c71d9",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://375985a118e706c63a2a2c4bec17ab3fc5d4250efa60fedb082a65f482ee7cb5",
+				"dweb:/ipfs/QmapxYgdcgxwmoUP8ipCvzDCUYqUAPBMWBUuU5KKg6YfKF"
+			]
+		}
+	},
+	"version": 1
+}
