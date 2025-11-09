@@ -1,0 +1,56 @@
+##PCA non linear (custom dataset)##
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+from sklearn.preprocessing import StandardScaler
+from sklearn.decomposition import KernelPCA
+
+# Load dataset
+df = pd.read_csv("Admission_Predict.csv")
+
+df = df.select_dtypes(include=['int64','float64'])
+X = df.drop("CGPA", axis=1)
+y = df["CGPA"]
+
+# ------------------------------------
+# BEFORE PCA (use first two features)
+# ------------------------------------
+plt.figure(figsize=(8,6))
+sns.scatterplot(
+    data=df,
+    x="GRE Score",        # Feature1
+    y="TOEFL Score",        # Feature2
+    hue=y
+)
+plt.title("Before Non-Linear PCA (Using First Two Features)")
+plt.grid(True)
+plt.show()
+
+# ------------------------------------
+# Standardize the data
+# ------------------------------------
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+# ------------------------------------
+# NON-LINEAR PCA (Kernel PCA)
+# ------------------------------------
+kpca = KernelPCA(n_components=2, kernel='rbf', gamma=0.2)
+kpca_data = kpca.fit_transform(X_scaled)
+
+df_kpca = pd.DataFrame(kpca_data, columns=['KPCA1', 'KPCA2'])
+df_kpca["CGPA"] = y
+
+# ------------------------------------
+# AFTER NON-LINEAR PCA
+# ------------------------------------
+plt.figure(figsize=(8,6))
+sns.scatterplot(
+    data=df_kpca,
+    x="KPCA1",
+    y="KPCA2",
+    hue="CGPA"
+)
+plt.title("After Non-Linear PCA (Kernel PCA – RBF Kernel)")
+plt.grid(True)
+plt.show()

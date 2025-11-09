@@ -1,0 +1,58 @@
+##PCA non linear (iris dataset)##
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+from sklearn.datasets import load_iris
+from sklearn.decomposition import KernelPCA
+from sklearn.preprocessing import StandardScaler
+
+# Load iris dataset
+iris = load_iris()
+df = pd.DataFrame(iris.data, columns=iris.feature_names)
+df['target'] = iris.target
+
+# ------------------------------
+# Standardize Data
+# ------------------------------
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(df.iloc[:, :4])
+
+# ------------------------------
+# Kernel PCA (Non-linear PCA)
+# ------------------------------
+kpca = KernelPCA(n_components=2, kernel='rbf', gamma=0.2)
+X_kpca = kpca.fit_transform(X_scaled)
+
+df['KPCA1'] = X_kpca[:, 0]
+df['KPCA2'] = X_kpca[:, 1]
+
+# ------------------------------
+# Visualization (Before vs After Nonlinear PCA)
+# ------------------------------
+fig, axes = plt.subplots(1, 2, figsize=(14, 6))
+
+# BEFORE PCA (original features – first two)
+sns.scatterplot(
+    data=df,
+    x=iris.feature_names[0],
+    y=iris.feature_names[1],
+    hue='target',
+    ax=axes[0]
+)
+axes[0].set_title("Before PCA (Using First Two Features)")
+axes[0].grid(True)
+
+# AFTER NON-LINEAR PCA (Kernel PCA)
+sns.scatterplot(
+    data=df,
+    x='KPCA1',
+    y='KPCA2',
+    hue='target',
+    ax=axes[1]
+)
+axes[1].set_title("After Non-linear PCA (Kernel PCA - RBF Kernel)")
+axes[1].grid(True)
+
+plt.tight_layout()
+plt.show()
+
