@@ -1,0 +1,680 @@
+1. Linear Regression
+#import libraries
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error,r2_score
+#load dataset
+
+df=pd.read_csv("StudentsPerformance.csv")
+df.head()
+#extract features
+X=df[["reading score","writing score"]]
+y=df["math score"]
+X_train,X_test,y_train,y_test=train_test_split(X,y,test_size=0.2,random_state=42)
+model=LinearRegression()
+model.fit(X_train,y_train)
+y_pred=model.predict(X_test)
+line_points = np.linspace(y_test.min(), y_test.max(), 100)
+plt.plot(line_points, line_points, color='red', linewidth=2, label='Perfect Prediction Line')
+plt.scatter(y_test, y_pred, color='blue')
+plt.xlabel("Actual Math Scores")
+plt.ylabel("Predicted Math Scores")
+plt.title("Actual vs Predicted (Linear Regression)")
+plt.show()
+print(f"{model.score(X_test,y_test)*100}")
+print("Model Evolution")
+print(f"Mean squared error: {mean_squared_error(y_test,y_pred)}")
+print(f"R2 score: {r2_score(y_test,y_pred)}")
+print(f"Coefficient: {model.coef_}")
+print(f"Intercept: {model.intercept_}")
+print(f"Y={model.coef_}*X+{model.intercept_}")
+
+2. Logistic Regression
+#Logistic regression
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score,confusion_matrix,classification_report
+from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LogisticRegression
+df=pd.read_csv("Social_Network_Ads.csv")
+df.head()
+X=df[['Age','EstimatedSalary']]
+y=df['Purchased']
+X_train,X_test,y_train,y_test=train_test_split(X,y,test_size=0.2,random_state=42)
+scaler=StandardScaler()
+X_train=scaler.fit_transform(X_train)
+X_test=scaler.transform(X_test)
+model=LogisticRegression()
+model.fit(X_train,y_train)
+y_pred=model.predict(X_test)
+print(f"Model accuracy: {accuracy_score(y_test,y_pred)}")
+print(f"Confusion matrix: {confusion_matrix(y_test,y_pred)}")
+print(f"Classification report: {classification_report(y_test,y_pred)}")
+plt.figure(figsize=(8,6))
+plt.scatter(X_test[:,0],X_test[:,1],c=y_pred,cmap="bwr")
+plt.title("Logistic Regression")
+plt.xlabel("Age (Scaled)")
+plt.ylabel("Estimed Salary (scaled)")
+plt.show()
+
+3. PCA Linear(iris)
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+from sklearn.datasets import load_iris
+from sklearn.decomposition import PCA
+from sklearn.preprocessing import StandardScaler
+
+iris = load_iris()
+df = pd.DataFrame(iris.data, columns=iris.feature_names)
+df['target'] = iris.target
+
+X_scaled = StandardScaler().fit_transform(iris.data)
+pca = PCA(n_components=2)
+pca_components = pca.fit_transform(X_scaled)
+
+df['PC1'] = pca_components[:, 0]
+df['PC2'] = pca_components[:, 1]
+
+print("Explained Variance Ratio:", pca.explained_variance_ratio_)
+
+fig, axes = plt.subplots(1, 2, figsize=(14, 6))
+
+sns.scatterplot(
+    data=df,
+    x=iris.feature_names[0],   
+    y=iris.feature_names[1],   
+    hue='target',
+    ax=axes[0]
+)
+axes[0].set_title("Before PCA (Using First Two Features)")
+axes[0].grid(True)
+
+sns.scatterplot(
+    data=df,
+    x='PC1',
+    y='PC2',
+    hue='target',
+    ax=axes[1]
+)
+axes[1].set_title("After PCA (2 Principal Components)")
+axes[1].grid(True)
+
+plt.tight_layout()
+plt.show()
+
+4. PCA Linear (Custom dataset)
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+from sklearn.preprocessing import StandardScaler
+from sklearn.decomposition import PCA
+
+# Load dataset
+df = pd.read_csv("sample_dataset.csv")
+
+df=df.select_dtypes(include=['int64','float64'])
+X = df.drop("Target", axis=1)
+y = df["Target"]
+
+
+plt.figure(figsize=(8,6))
+sns.scatterplot(
+    data=df,
+    x="Feature1",
+    y="Feature2",
+    hue="Target"
+)
+plt.title("Before PCA (Using First Two Features)")
+plt.grid(True)
+plt.show()
+
+
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+pca = PCA(n_components=2)
+pca_data = pca.fit_transform(X_scaled)
+
+df_pca = pd.DataFrame(pca_data, columns=['PC1', 'PC2'])
+df_pca["Target"] = y
+
+print("Explained Variance Ratio:", pca.explained_variance_ratio_)
+
+
+plt.figure(figsize=(8,6))
+sns.scatterplot(
+    data=df_pca,
+    x="PC1",
+    y="PC2",
+    hue="Target"
+)
+plt.title("After PCA (2 Principal Components)")
+plt.grid(True)
+plt.show()
+
+5. PCA Non linear (iris)
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+from sklearn.datasets import load_iris
+from sklearn.decomposition import KernelPCA
+from sklearn.preprocessing import StandardScaler
+
+# Load iris dataset
+iris = load_iris()
+df = pd.DataFrame(iris.data, columns=iris.feature_names)
+df['target'] = iris.target
+
+# ------------------------------
+# Standardize Data
+# ------------------------------
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(df.iloc[:, :4])
+
+# ------------------------------
+# Kernel PCA (Non-linear PCA)
+# ------------------------------
+kpca = KernelPCA(n_components=2, kernel='rbf', gamma=0.2)
+X_kpca = kpca.fit_transform(X_scaled)
+
+df['KPCA1'] = X_kpca[:, 0]
+df['KPCA2'] = X_kpca[:, 1]
+
+# ------------------------------
+# Visualization (Before vs After Nonlinear PCA)
+# ------------------------------
+fig, axes = plt.subplots(1, 2, figsize=(14, 6))
+
+# BEFORE PCA (original features – first two)
+sns.scatterplot(
+    data=df,
+    x=iris.feature_names[0],
+    y=iris.feature_names[1],
+    hue='target',
+    ax=axes[0]
+)
+axes[0].set_title("Before PCA (Using First Two Features)")
+axes[0].grid(True)
+
+# AFTER NON-LINEAR PCA (Kernel PCA)
+sns.scatterplot(
+    data=df,
+    x='KPCA1',
+    y='KPCA2',
+    hue='target',
+    ax=axes[1]
+)
+axes[1].set_title("After Non-linear PCA (Kernel PCA - RBF Kernel)")
+axes[1].grid(True)
+
+plt.tight_layout()
+plt.show()
+
+6. PCA non linear (custom dataset)
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+from sklearn.preprocessing import StandardScaler
+from sklearn.decomposition import KernelPCA
+
+# Load dataset
+df = pd.read_csv("Admission_Predict.csv")
+
+df = df.select_dtypes(include=['int64','float64'])
+X = df.drop("CGPA", axis=1)
+y = df["CGPA"]
+
+# ------------------------------------
+# BEFORE PCA (use first two features)
+# ------------------------------------
+plt.figure(figsize=(8,6))
+sns.scatterplot(
+    data=df,
+    x="GRE Score",        # Feature1
+    y="TOEFL Score",        # Feature2
+    hue=y
+)
+plt.title("Before Non-Linear PCA (Using First Two Features)")
+plt.grid(True)
+plt.show()
+
+# ------------------------------------
+# Standardize the data
+# ------------------------------------
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+# ------------------------------------
+# NON-LINEAR PCA (Kernel PCA)
+# ------------------------------------
+kpca = KernelPCA(n_components=2, kernel='rbf', gamma=0.2)
+kpca_data = kpca.fit_transform(X_scaled)
+
+df_kpca = pd.DataFrame(kpca_data, columns=['KPCA1', 'KPCA2'])
+df_kpca["CGPA"] = y
+
+# ------------------------------------
+# AFTER NON-LINEAR PCA
+# ------------------------------------
+plt.figure(figsize=(8,6))
+sns.scatterplot(
+    data=df_kpca,
+    x="KPCA1",
+    y="KPCA2",
+    hue="CGPA"
+)
+plt.title("After Non-Linear PCA (Kernel PCA – RBF Kernel)")
+plt.grid(True)
+plt.show()
+
+7. PCA (matrix)
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.preprocessing import StandardScaler
+from sklearn.decomposition import PCA
+
+# ---------- Input Data (3×3 Matrix) ----------
+# Example 3×3 matrix
+data = np.array([
+    [1, 4, 7],
+    [2, 5, 8],
+    [3, 6, 9]
+])
+
+print("Original Data:\n", data)
+
+# ---------- Sub-Q1: Preprocessing ----------
+scaler = StandardScaler()
+data_std = scaler.fit_transform(data)
+print("\nStandardized Data:\n", data_std)
+
+# ---------- Sub-Q2: PCA Reduction ----------
+# Reduce 3D → 2 components
+pca = PCA(n_components=2)
+data_pca = pca.fit_transform(data_std)
+
+print("\nPCA Reduced Data (2D):\n", data_pca)
+print("Explained Variance Ratio:", pca.explained_variance_ratio_)
+
+# ---------- Sub-Q3: Plot ----------
+plt.figure(figsize=(10,5))
+
+# Plot original standardized 3D data (project first 2 features)
+plt.subplot(1,2,1)
+plt.scatter(data_std[:,0], data_std[:,1], s=120, color='blue')
+plt.title("Original Data (Standardized)")
+plt.xlabel("Feature 1")
+plt.ylabel("Feature 2")
+plt.grid(True)
+
+# Plot PCA output (2D)
+plt.subplot(1,2,2)
+plt.scatter(data_pca[:,0], data_pca[:,1], s=120, color='red')
+plt.title("PCA Reduced Data (2D)")
+plt.xlabel("PC1")
+plt.ylabel("PC2")
+plt.grid(True)
+
+plt.tight_layout()
+plt.show()
+
+8. SOM
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.datasets import load_iris
+from sklearn.preprocessing import MinMaxScaler
+from minisom import MiniSom
+
+# Load dataset
+iris = load_iris()
+X = iris.data
+y = iris.target
+
+# Scale data between 0 and 1
+scaler = MinMaxScaler()
+X_scaled = scaler.fit_transform(X)
+
+# Create SOM grid (7x7)
+som = MiniSom(
+    x=7, 
+    y=7, 
+    input_len=X_scaled.shape[1], 
+    sigma=1.0,
+    learning_rate=0.5
+)
+
+# Initialize random weights
+som.random_weights_init(X_scaled)
+
+print("Training SOM...")
+som.train_random(X_scaled, num_iteration=1000)
+print("Training completed.")
+
+# Plot SOM
+plt.figure(figsize=(8, 8))
+
+# U-Matrix (shows distances between neurons)
+plt.pcolor(som.distance_map().T, cmap='bone_r')
+plt.colorbar()
+
+# Plot data labels on SOM
+for i, x in enumerate(X_scaled):
+    w = som.winner(x)  # winning neuron
+    plt.text(
+        w[0] + 0.5,
+        w[1] + 0.5,
+        str(y[i]),
+        color=plt.cm.rainbow(y[i] / y.max()),
+        fontsize=12,
+        fontweight='bold'
+    )
+
+plt.title("Self-Organizing Map (SOM) on Iris Dataset")
+plt.xlim([0, 7])
+plt.ylim([0, 7])
+plt.show()
+
+9. SOM Unsupervised
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.datasets import load_iris
+from sklearn.preprocessing import MinMaxScaler
+from minisom import MiniSom
+
+# Load data
+iris = load_iris()
+X = iris.data
+y = iris.target
+
+# Scale data
+X_scaled = MinMaxScaler().fit_transform(X)
+
+# Create SOM (Unsupervised)
+som = MiniSom(x=7, y=7, input_len=X.shape[1], sigma=1.0, learning_rate=0.5)
+som.random_weights_init(X_scaled)
+
+print("Training Unsupervised SOM...")
+som.train_random(X_scaled, 1000)
+print("Training completed.")
+
+# Plot U-Matrix
+plt.figure(figsize=(8, 8))
+plt.pcolor(som.distance_map().T, cmap='bone_r')
+plt.colorbar()
+
+# Plot labels on neuron winners
+for i, x in enumerate(X_scaled):
+    w = som.winner(x)
+    plt.text(w[0] + 0.5, w[1] + 0.5,
+             str(y[i]),
+             color=plt.cm.rainbow(y[i] / y.max()),
+             fontsize=12)
+
+plt.title("Unsupervised SOM (U-Matrix + Labels)")
+plt.show()
+
+10. SOM Supervised
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.datasets import load_iris
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
+from minisom import MiniSom
+
+# Load data
+iris = load_iris()
+X = iris.data
+y = iris.target
+
+# Scale
+X_scaled = MinMaxScaler().fit_transform(X)
+
+# Train SOM
+som = MiniSom(x=7, y=7, input_len=X.shape[1], sigma=1.0, learning_rate=0.5)
+som.random_weights_init(X_scaled)
+som.train_random(X_scaled, 1000)
+
+# Convert samples to neuron positions (Supervised encoding)
+mapped = np.array([som.winner(x) for x in X_scaled])
+mapped = mapped.reshape(len(X), 2)  # (winner_x, winner_y)
+
+# Train-Test split
+X_train, X_test, y_train, y_test = train_test_split(mapped, y, test_size=0.2, random_state=42)
+
+# Train classifier (KNN)
+clf = KNeighborsClassifier(n_neighbors=3)
+clf.fit(X_train, y_train)
+
+# Predict
+y_pred = clf.predict(X_test)
+
+print("Supervised SOM Accuracy:", accuracy_score(y_test, y_pred))
+
+# Plot SOM + labels
+plt.figure(figsize=(8, 8))
+plt.pcolor(som.distance_map().T, cmap='bone_r')
+plt.colorbar()
+
+for i, m in enumerate(mapped):
+    plt.text(m[0] + 0.5, m[1] + 0.5, str(y[i]),
+             color=plt.cm.rainbow(y[i]/y.max()),
+             fontsize=12)
+
+plt.title("Supervised SOM (SOM + KNN Classifier)")
+plt.show()
+
+11. Fuzzy 
+import numpy as np
+import matplotlib.pyplot as plt
+
+A = np.array([[0.2, 0.5, 0.7, 1.0],
+              [0.4, 0.6, 0.3, 0.9]])
+
+B = np.array([[0.3, 0.7, 0.5, 0.8],
+              [0.1, 0.4, 0.6, 0.2]])
+
+union = np.fmax(A, B)
+intersection = np.fmin(A, B)
+complement_A = 1 - A
+complement_B = 1 - B
+algebraic_sum = A + B - (A * B)
+algebraic_product = A * B
+bounded_sum = np.minimum(1, A + B)
+bounded_difference = np.maximum(0, A + B - 1)
+
+print("A:\n", A)
+print("\nB:\n", B)
+print("\nUnion:\n", union)
+print("\nIntersection:\n", intersection)
+print("\nAlgebraic Sum:\n", algebraic_sum)
+print("\nAlgebraic Product:\n", algebraic_product)
+print("\nBounded Sum:\n", bounded_sum)
+print("\nBounded Difference:\n", bounded_difference)
+
+elements = np.arange(A.shape[1]) 
+plt.figure(figsize=(12, 8))
+
+plt.subplot(2, 1, 1)
+plt.plot(elements, A[0], 'bo-', label='A₁')
+plt.plot(elements, B[0], 'ro-', label='B₁')
+plt.plot(elements, union[0], 'g--', label='Union (A₁ ∪ B₁)')
+plt.plot(elements, intersection[0], 'm--', label='Intersection (A₁ ∩ B₁)')
+plt.plot(elements, algebraic_sum[0], 'y--', label='Algebraic Sum')
+plt.plot(elements, algebraic_product[0], 'k--', label='Algebraic Product')
+plt.plot(elements, bounded_sum[0], 'b:', label='Bounded Sum')
+plt.plot(elements, bounded_difference[0], 'r:', label='Bounded Difference')
+plt.title("Fuzzy Set Operations Visualization (Set 1)", fontsize=13)
+plt.xlabel("Elements")
+plt.ylabel("Membership Value")
+plt.ylim(0, 1.1)
+plt.legend()
+plt.grid(True)
+
+plt.subplot(2, 1, 2)
+plt.plot(elements, A[1], 'bo-', label='A₂')
+plt.plot(elements, B[1], 'ro-', label='B₂')
+plt.plot(elements, union[1], 'g--', label='Union (A₂ ∪ B₂)')
+plt.plot(elements, intersection[1], 'm--', label='Intersection (A₂ ∩ B₂)')
+plt.plot(elements, algebraic_sum[1], 'y--', label='Algebraic Sum')
+plt.plot(elements, algebraic_product[1], 'k--', label='Algebraic Product')
+plt.plot(elements, bounded_sum[1], 'b:', label='Bounded Sum')
+plt.plot(elements, bounded_difference[1], 'r:', label='Bounded Difference')
+plt.title("Fuzzy Set Operations Visualization (Set 2)", fontsize=13)
+plt.xlabel("Elements")
+plt.ylabel("Membership Value")
+plt.ylim(0, 1.1)
+plt.legend()
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+
+12. Genetic Algo
+
+# Q1. Genetic Algorithm with initial population = {12, 5, 25, 19}
+
+# -----------------------------------------
+# 1. Evaluate Solution (Fitness Function)
+# -----------------------------------------
+
+def fitness(x):
+    return x * x   # example: f(x) = x^2
+
+population = [12, 5, 25, 19]
+
+print("Initial Population:", population)
+print("\n1. Fitness of each solution:")
+for x in population:
+    print(f"x = {x}, fitness = {fitness(x)}")
+
+
+# -----------------------------------------
+# 2. Define Two Crossover Functions
+# -----------------------------------------
+
+# Single-Point Crossover
+def single_point_crossover(p1, p2):
+    point = 1  # crossover after index 1
+    child1 = p1[:point] + p2[point:]
+    child2 = p2[:point] + p1[point:]
+    return child1, child2
+
+# Two-Point Crossover
+def two_point_crossover(p1, p2):
+    p1_cut, p2_cut = 1, 3
+    child1 = p1[:p1_cut] + p2[p1_cut:p2_cut] + p1[p2_cut:]
+    child2 = p2[:p1_cut] + p1[p1_cut:p2_cut] + p2[p2_cut:]
+    return child1, child2
+
+print("\n2. Defined Crossover Functions:")
+print("→ single_point_crossover(p1, p2)")
+print("→ two_point_crossover(p1, p2)")
+
+
+# -----------------------------------------
+# 3. Define Two Mutation Functions
+# -----------------------------------------
+
+# Bit Flip Mutation (for binary strings)
+def bit_flip_mutation(b):
+    i = 0  # flip first bit for example
+    b = list(b)
+    b[i] = '1' if b[i] == '0' else '0'
+    return "".join(b)
+
+# Swap Mutation (swap two positions)
+def swap_mutation(b):
+    i, j = 1, 3
+    b = list(b)
+    b[i], b[j] = b[j], b[i]
+    return "".join(b)
+
+print("\n3. Defined Mutation Functions:")
+print("→ bit_flip_mutation(binary_string)")
+print("→ swap_mutation(binary_string)")
+
+13. Genetic algo
+# =====================================================
+# Genetic Algorithm Steps (Simple Version)
+# Population = {12, 5, 25, 19}
+# =====================================================
+
+# 1. ENCODE (convert decimal → binary)
+def encode(x):
+    return format(x, '05b')   # 5-bit encoding
+
+# 2. DECODE (binary → decimal)
+def decode(b):
+    return int(b, 2)
+
+# 3. CROSSOVER FUNCTIONS
+
+# (A) Single-Point Crossover
+def single_point_crossover(p1, p2):
+    point = 2
+    c1 = p1[:point] + p2[point:]
+    c2 = p2[:point] + p1[point:]
+    return c1, c2
+
+# (B) Two-Point Crossover
+def two_point_crossover(p1, p2):
+    i, j = 1, 4
+    c1 = p1[:i] + p2[i:j] + p1[j:]
+    c2 = p2[:i] + p1[i:j] + p2[j:]
+    return c1, c2
+
+# 4. MUTATION FUNCTIONS
+
+# (A) Bit Flip Mutation
+def bit_flip_mutation(b):
+    i = 2  # flip bit-3
+    b = list(b)
+    b[i] = "1" if b[i] == "0" else "0"
+    return "".join(b)
+
+# (B) Swap Mutation
+def swap_mutation(b):
+    i, j = 1, 4  # swap bit-2 and bit-5
+    b = list(b)
+    b[i], b[j] = b[j], b[i]
+    return "".join(b)
+
+# =====================================================
+# MAIN PROGRAM
+# =====================================================
+
+# Initial population
+population = [12, 5, 25, 19]
+print("Initial Population:", population)
+
+# Step 1: Encode
+encoded = [encode(x) for x in population]
+print("\nEncoded Population:", encoded)
+
+# Step 2: Apply Two Crossovers
+c1, c2 = single_point_crossover(encoded[0], encoded[2])
+c3, c4 = two_point_crossover(encoded[1], encoded[3])
+children = [c1, c2, c3, c4]
+print("\nAfter Crossovers:", children)
+
+# Step 3: Apply Two Mutations
+m1 = bit_flip_mutation(children[0])   # mutate child1
+m2 = swap_mutation(children[1])       # mutate child2
+m3 = children[2]                      # unchanged
+m4 = children[3]                      # unchanged
+mutated = [m1, m2, m3, m4]
+print("\nAfter Mutations:", mutated)
+
+# Step 4: Decode mutated population
+decoded = [decode(b) for b in mutated]
+print("\nDecoded Final Population:", decoded)
+
